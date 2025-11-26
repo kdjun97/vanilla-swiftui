@@ -11,8 +11,9 @@ public struct DependencyInfo: @unchecked Sendable {
 
 public let dependencyInfo: DependencyInfo = DependencyInfo(
     moduleDependencies: [
-        .App: [.Presentations(.Root)],
-        .Domain: [],
-        .Presentations(.Root): [.Domain, .DesignSystem]
+        .App: [.Presentations(.Root), .DI],
+        .Domain: [.DI],
+        .Presentations(.Root): [.Domain, .DesignSystem],
+        .DI: [.External(.Swinject)]
     ]
 )

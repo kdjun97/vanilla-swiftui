@@ -9,12 +9,13 @@ public enum ModuleType: Hashable {
     case App
     case Domain
     case Presentations(PresentationModuleType)
-    
     case DesignSystem
+    case External(ExternalModuleType)
+    case DI
 }
 
 public enum ExternalModuleType: String {
-    case TCA // 임시
+    case Swinject
 }
 
 public enum PresentationModuleType: String {
