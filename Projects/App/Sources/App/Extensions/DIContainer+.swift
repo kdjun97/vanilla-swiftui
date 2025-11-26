@@ -6,9 +6,18 @@
 //
 
 import DI
+import Base
 
 extension DIContainer {
     func register() {
-        // TODO: Injection
+        registerBaseNavigation()
+    }
+}
+
+private extension DIContainer {
+    func registerBaseNavigation() {
+        container.register(BaseNavigation.self) { _ in
+            BaseNavigation()
+        }.inObjectScope(.container)
     }
 }

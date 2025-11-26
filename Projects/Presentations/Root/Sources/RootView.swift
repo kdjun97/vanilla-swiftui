@@ -6,13 +6,28 @@
 //
 
 import SwiftUI
+import Base
+import DI
+import Splash
+import SignIn
+import Main
 
 public struct RootView: View  {
-    public init() {}
+    @StateObject private var navigation: BaseNavigation
     
+    public init() {
+        let navigation: BaseNavigation = DIContainer.shared.resolve()
+        _navigation = StateObject(wrappedValue: navigation)
+    }
+
     public var body: some View {
-        VStack(spacing: 0) {
-           Text("This is RootView!")
+        switch navigation.rootPath {
+        case .splash:
+            SplashView()
+        case .signIn:
+            SignInView()
+        case .main:
+            MainView()
         }
     }
 }

@@ -20,4 +20,8 @@ public enum ExternalModuleType: String {
 
 public enum PresentationModuleType: String {
     case Root
+    case Base
+    case Splash
+    case SignIn
+    case Main
 }

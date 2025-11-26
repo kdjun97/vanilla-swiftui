@@ -13,7 +13,15 @@ public let dependencyInfo: DependencyInfo = DependencyInfo(
     moduleDependencies: [
         .App: [.Presentations(.Root), .DI],
         .Domain: [.DI],
-        .Presentations(.Root): [.Domain, .DesignSystem],
-        .DI: [.External(.Swinject)]
+        .Presentations(.Base): [.Domain, .DesignSystem],
+        .Presentations(.Root): [
+            .Presentations(.Splash),
+            .Presentations(.SignIn),
+            .Presentations(.Main)
+        ],
+        .Presentations(.Splash): [.Presentations(.Base)],
+        .Presentations(.SignIn): [.Presentations(.Base)],
+        .Presentations(.Main): [.Presentations(.Base)],
+        .DI: [.External(.Swinject)],
     ]
 )
