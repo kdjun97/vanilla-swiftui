@@ -18,6 +18,10 @@ extension ModuleType {
             "DesignSystem"
         case .Presentations(let presentationModule):
             presentationModule.rawValue
+        case .External(let externalModule):
+            externalModule.rawValue
+        case .DI:
+            "DI"
         }
     }
     
@@ -77,7 +81,7 @@ extension ModuleType {
     var additionalFiles: [FileElement]? {
         switch self {
         case .App:
-            ["../../XCConfig/Shared.xcconfig"]
+            nil
         default:
             nil
         }
