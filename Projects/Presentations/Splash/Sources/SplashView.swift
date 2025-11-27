@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
+import DI
 
 public struct SplashView: View  {
-    public init() {}
+    @StateObject private var viewModel: SplashViewModel
+
+    public init() {
+        let viewModel: SplashViewModel = DIContainer.shared.resolve()
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     public var body: some View {
         ZStack {
-            Text("This is Splash View~")
+            Text("바닐라 스유!")
+                .font(.system(size: 54, weight: .bold))
+        }.onAppear {
+            viewModel.send(.onAppear)
         }
     }
 }
