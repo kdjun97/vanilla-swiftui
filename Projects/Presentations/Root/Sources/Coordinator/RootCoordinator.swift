@@ -7,7 +7,7 @@
 
 import Splash
 
-final public class AppCoordinator: SplashCoordinator {
+final public class RootCoordinator: SplashCoordinator {
     private var navigation: RootNavigation
     
     public init(navigation: RootNavigation) {
