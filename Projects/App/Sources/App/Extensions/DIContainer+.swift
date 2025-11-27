@@ -19,7 +19,7 @@ extension DIContainer {
 private extension DIContainer {
     func registerCoordinator() {
         registerRootNavigation()
-        registerAppCoordinator()
+        registerRootCoordinator()
         registerSplashCoordinator()
     }
     
@@ -29,15 +29,15 @@ private extension DIContainer {
         }.inObjectScope(.container)
     }
     
-    func registerAppCoordinator() {
-        container.register(AppCoordinator.self) { resolver in
-            AppCoordinator(navigation: resolver.resolve())
+    func registerRootCoordinator() {
+        container.register(RootCoordinator.self) { resolver in
+            RootCoordinator(navigation: resolver.resolve())
         }.inObjectScope(.container)
     }
     
     func registerSplashCoordinator() {
         container.register(SplashCoordinator.self) { resolver in
-            guard let coordinator = resolver.resolve(AppCoordinator.self) else {
+            guard let coordinator = resolver.resolve(RootCoordinator.self) else {
                 fatalError("DI Error: SplashCoordinator not registered")
             }
             return coordinator
