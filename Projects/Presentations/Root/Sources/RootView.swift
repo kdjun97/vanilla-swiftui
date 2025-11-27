@@ -6,19 +6,14 @@
 //
 
 import SwiftUI
-import Base
-import DI
 import Splash
 import SignIn
 import Main
 
 public struct RootView: View  {
-    @StateObject private var navigation: BaseNavigation
+    @EnvironmentObject private var navigation: RootNavigation
     
-    public init() {
-        let navigation: BaseNavigation = DIContainer.shared.resolve()
-        _navigation = StateObject(wrappedValue: navigation)
-    }
+    public init() {}
 
     public var body: some View {
         switch navigation.rootPath {
