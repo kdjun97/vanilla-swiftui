@@ -6,15 +6,24 @@
 //
 
 import Splash
+import SignIn
 
-final public class RootCoordinator: SplashCoordinator {
+final public class RootCoordinator {
     private var navigation: RootNavigation
     
     public init(navigation: RootNavigation) {
         self.navigation = navigation
     }
-    
+}
+
+extension RootCoordinator: SplashCoordinator {
     public func navigateToSignIn() {
         navigation.rootPath = .signIn
+    }
+}
+
+extension RootCoordinator: SignInCoordinator {
+    public func navigateToMain() {
+        navigation.rootPath = .main
     }
 }
