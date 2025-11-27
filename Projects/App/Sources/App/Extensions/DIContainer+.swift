@@ -8,6 +8,7 @@
 import DI
 import Splash
 import Root
+import SignIn
 
 extension DIContainer {
     func register() {
@@ -21,6 +22,7 @@ private extension DIContainer {
         registerRootNavigation()
         registerRootCoordinator()
         registerSplashCoordinator()
+        registerSignInCoordinator()
     }
     
     func registerRootNavigation() {
@@ -43,16 +45,32 @@ private extension DIContainer {
             return coordinator
         }
     }
+    
+    func registerSignInCoordinator() {
+        container.register(SignInCoordinator.self) { resolver in
+            guard let coordinator = resolver.resolve(RootCoordinator.self) else {
+                fatalError("DI Error: SignInCoordinator not registered")
+            }
+            return coordinator
+        }
+    }
 }
 
 private extension DIContainer {
     func registerViewModel() {
         registerSplashViewModel()
+        registerSignInViewModel()
     }
     
     func registerSplashViewModel() {
         container.register(SplashViewModel.self) { resolver in
             SplashViewModel(coordinator: resolver.resolve())
+        }
+    }
+    
+    func registerSignInViewModel() {
+        container.register(SignInViewModel.self) { resolver in
+            SignInViewModel(coordinator: resolver.resolve())
         }
     }
 }
