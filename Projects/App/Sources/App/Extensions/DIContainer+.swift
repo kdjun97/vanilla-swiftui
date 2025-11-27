@@ -21,8 +21,8 @@ private extension DIContainer {
     func registerCoordinator() {
         registerRootNavigation()
         registerRootCoordinator()
-        registerSplashCoordinator()
-        registerSignInCoordinator()
+        registerTargetToDependency(SplashCoordinator.self, to: RootCoordinator.self)
+        registerTargetToDependency(SignInCoordinator.self, to: RootCoordinator.self)
     }
     
     func registerRootNavigation() {
@@ -34,24 +34,6 @@ private extension DIContainer {
     func registerRootCoordinator() {
         container.register(RootCoordinator.self) { resolver in
             RootCoordinator(navigation: resolver.resolve())
-        }.inObjectScope(.container)
-    }
-    
-    func registerSplashCoordinator() {
-        container.register(SplashCoordinator.self) { resolver in
-            guard let coordinator = resolver.resolve(RootCoordinator.self) else {
-                fatalError("DI Error: SplashCoordinator not registered")
-            }
-            return coordinator
-        }
-    }
-    
-    func registerSignInCoordinator() {
-        container.register(SignInCoordinator.self) { resolver in
-            guard let coordinator = resolver.resolve(RootCoordinator.self) else {
-                fatalError("DI Error: SignInCoordinator not registered")
-            }
-            return coordinator
         }
     }
 }
@@ -71,6 +53,20 @@ private extension DIContainer {
     func registerSignInViewModel() {
         container.register(SignInViewModel.self) { resolver in
             SignInViewModel(coordinator: resolver.resolve())
+        }
+    }
+}
+
+private extension DIContainer {
+    func registerTargetToDependency<Target, Dependency>(
+        _ target: Target.Type,
+        to dependency: Dependency.Type
+    ) {
+        container.register(target) { resolver in
+            guard let resolved = resolver.resolve(dependency) as? Target else {
+                fatalError("DI Error: \(target) resolution failed")
+            }
+            return resolved
         }
     }
 }
