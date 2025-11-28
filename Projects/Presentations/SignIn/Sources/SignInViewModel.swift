@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class SignInViewModel: ObservableObject {
+final public class SignInViewModel: ObservableObject {
     private let coordinator: SignInCoordinator
         
     public init(coordinator: SignInCoordinator) {

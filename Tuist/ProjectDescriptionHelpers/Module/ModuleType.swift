@@ -24,4 +24,6 @@ public enum PresentationModuleType: String {
     case Splash
     case SignIn
     case Main
+    case Home
+    case MyPage
 }

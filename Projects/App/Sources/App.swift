@@ -8,18 +8,21 @@
 import SwiftUI
 import Root
 import DI
+import Main
 
 @main
 struct VanillaSwiftUIApp: App {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
-    @StateObject private var navigation: RootNavigation = DIContainer.shared.resolve()
+    @StateObject private var rootNavigation: RootNavigation = DIContainer.shared.resolve()
+    @StateObject private var mainNavigation: MainNavigation = DIContainer.shared.resolve()
 
     init() {}
     
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(navigation)
+                .environmentObject(rootNavigation)
+                .environmentObject(mainNavigation)
         }
     }
 }

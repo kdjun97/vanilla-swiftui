@@ -21,7 +21,12 @@ public let dependencyInfo: DependencyInfo = DependencyInfo(
         ],
         .Presentations(.Splash): [.Presentations(.Base)],
         .Presentations(.SignIn): [.Presentations(.Base)],
-        .Presentations(.Main): [.Presentations(.Base)],
+        .Presentations(.Main): [
+            .Presentations(.Home),
+            .Presentations(.MyPage)
+        ],
+        .Presentations(.Home): [.Presentations(.Base)],
+        .Presentations(.MyPage): [.Presentations(.Base)],
         .DI: [.External(.Swinject)],
     ]
 )

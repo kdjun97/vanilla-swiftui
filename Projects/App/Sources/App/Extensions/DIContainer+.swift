@@ -9,6 +9,9 @@ import DI
 import Splash
 import Root
 import SignIn
+import Main
+import Home
+import MyPage
 
 extension DIContainer {
     func register() {
@@ -19,21 +22,32 @@ extension DIContainer {
 
 private extension DIContainer {
     func registerCoordinator() {
-        registerRootNavigation()
-        registerRootCoordinator()
+        registerNavigation()
+        registerNavigationCoordinator()
         registerTargetToDependency(SplashCoordinator.self, to: RootCoordinator.self)
         registerTargetToDependency(SignInCoordinator.self, to: RootCoordinator.self)
+        registerTargetToDependency(HomeCoordinator.self, to: MainCoordinator.self)
+        registerTargetToDependency(MyPageCoordinator.self, to: MainCoordinator.self)
+        registerTargetToDependency(MyPageRootCoordinator.self, to: RootCoordinator.self)
     }
     
-    func registerRootNavigation() {
+    func registerNavigation() {
         container.register(RootNavigation.self) { _ in
             RootNavigation()
         }.inObjectScope(.container)
+        
+        container.register(MainNavigation.self) { _ in
+            MainNavigation()
+        }.inObjectScope(.container)
     }
     
-    func registerRootCoordinator() {
+    func registerNavigationCoordinator() {
         container.register(RootCoordinator.self) { resolver in
             RootCoordinator(navigation: resolver.resolve())
+        }
+        
+        container.register(MainCoordinator.self) { resolver in
+            MainCoordinator(navigation: resolver.resolve())
         }
     }
 }
@@ -42,6 +56,9 @@ private extension DIContainer {
     func registerViewModel() {
         registerSplashViewModel()
         registerSignInViewModel()
+        registerMainViewModel()
+        registerHomeViewModel()
+        registerMyPageViewModel()
     }
     
     func registerSplashViewModel() {
@@ -53,6 +70,27 @@ private extension DIContainer {
     func registerSignInViewModel() {
         container.register(SignInViewModel.self) { resolver in
             SignInViewModel(coordinator: resolver.resolve())
+        }
+    }
+    
+    func registerMainViewModel() {
+        container.register(MainViewModel.self) { resolver in
+            MainViewModel(coordinator: resolver.resolve())
+        }
+    }
+    
+    func registerHomeViewModel() {
+        container.register(HomeViewModel.self) { resolver in
+            HomeViewModel(coordinator: resolver.resolve())
+        }
+    }
+    
+    func registerMyPageViewModel() {
+        container.register(MyPageViewModel.self) { resolver in
+            MyPageViewModel(
+                coordinator: resolver.resolve(),
+                rootCoordinator: resolver.resolve()
+            )
         }
     }
 }
