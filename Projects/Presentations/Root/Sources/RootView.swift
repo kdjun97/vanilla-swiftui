@@ -11,18 +11,20 @@ import SignIn
 import Main
 
 public struct RootView: View  {
-    @EnvironmentObject private var navigation: RootNavigation
-    
+    @EnvironmentObject private var rootNavigation: RootNavigation
+    @EnvironmentObject private var mainNavigation: MainNavigation
+
     public init() {}
 
     public var body: some View {
-        switch navigation.rootPath {
+        switch rootNavigation.rootPath {
         case .splash:
             SplashView()
         case .signIn:
             SignInView()
         case .main:
             MainView()
+                .environmentObject(mainNavigation)
         }
     }
 }

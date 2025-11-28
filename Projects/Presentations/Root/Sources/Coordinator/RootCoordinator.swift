@@ -7,6 +7,7 @@
 
 import Splash
 import SignIn
+import MyPage
 
 final public class RootCoordinator {
     private var navigation: RootNavigation
@@ -25,5 +26,11 @@ extension RootCoordinator: SplashCoordinator {
 extension RootCoordinator: SignInCoordinator {
     public func navigateToMain() {
         navigation.rootPath = .main
+    }
+}
+
+extension RootCoordinator: MyPageRootCoordinator {
+    public func logout() {
+        navigation.rootPath = .signIn
     }
 }
