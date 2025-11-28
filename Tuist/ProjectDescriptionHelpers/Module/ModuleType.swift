@@ -26,4 +26,5 @@ public enum PresentationModuleType: String {
     case Main
     case Home
     case MyPage
+    case EditProfile
 }

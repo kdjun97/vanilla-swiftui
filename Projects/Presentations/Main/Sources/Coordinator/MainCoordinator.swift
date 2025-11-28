@@ -21,5 +21,7 @@ extension MainCoordinator: HomeCoordinator {
 }
 
 extension MainCoordinator: MyPageCoordinator {
-    
+    public func navigateToEditProfile() {
+        navigation.mainPath.append(.editProfile)
+    }
 }

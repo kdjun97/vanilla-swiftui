@@ -6,7 +6,7 @@
 //
 
 public protocol MyPageCoordinator {
-    
+    func navigateToEditProfile()
 }
 
 public protocol MyPageRootCoordinator {

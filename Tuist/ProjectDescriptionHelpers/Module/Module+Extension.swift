@@ -86,4 +86,11 @@ extension ModuleType {
             nil
         }
     }
+    
+    var resourceSynthesizers: [ResourceSynthesizer] {
+        switch self {
+        case .DesignSystem: [.assets()]
+        default: []
+        }
+    }
 }
