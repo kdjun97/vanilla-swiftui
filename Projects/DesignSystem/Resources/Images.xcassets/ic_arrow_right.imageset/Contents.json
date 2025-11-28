@@ -1,6 +1,7 @@
 {
-  "colors" : [
+  "images" : [
     {
+      "filename" : "ic_arrow_right.pdf",
       "idiom" : "universal"
     }
   ],
