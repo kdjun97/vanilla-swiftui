@@ -9,6 +9,7 @@ import SwiftUI
 import DI
 import Home
 import MyPage
+import EditProfile
 
 public struct MainView: View  {
     @EnvironmentObject private var navigation: MainNavigation
@@ -52,13 +53,6 @@ private extension MainView {
                 }
                 .tag(TabCase.myPage)
         }
-    }
-}
-
-// TODO: EditProfile View
-private struct EditProfileView: View {
-    var body: some View {
-        Text("Edit Profile View")
     }
 }
 
