@@ -17,7 +17,23 @@ final public class EditProfileViewModel: ObservableObject {
     enum Action {
         case onAppear
         case backButtonTapped
+        case editProfileButtonTapped
     }
+    
+    enum AlertCase: Identifiable {
+        case success
+        case failure(String)
+        
+        var id: String {
+            switch self {
+            case .success: "success"
+            case .failure: "failure"
+            }
+        }
+    }
+    
+    @Published var isLoading: Bool = false
+    @Published var alertCase: AlertCase?
     
     func send(_ action: Action) {
         switch action {
@@ -25,7 +41,20 @@ final public class EditProfileViewModel: ObservableObject {
             break
         case .backButtonTapped:
             coordinator.navigateToBack()
-            break
+        case .editProfileButtonTapped:
+            isLoading = true
+            Task { @MainActor in
+                await updateProfile()
+                isLoading = false
+                alertCase = .success
+            }
         }
+    }
+}
+
+private extension EditProfileViewModel {
+    func updateProfile() async {
+        // TODO: Usecase 작업
+        try? await Task.sleep(for: .seconds(1))
     }
 }
