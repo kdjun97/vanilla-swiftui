@@ -12,6 +12,7 @@ public enum ModuleType: Hashable {
     case DesignSystem
     case External(ExternalModuleType)
     case DI
+    case Data
 }
 
 public enum ExternalModuleType: String {
