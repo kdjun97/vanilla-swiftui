@@ -12,6 +12,7 @@ import SignIn
 import Main
 import Home
 import MyPage
+import EditProfile
 
 extension DIContainer {
     func register() {
@@ -29,6 +30,7 @@ private extension DIContainer {
         registerTargetToDependency(HomeCoordinator.self, to: MainCoordinator.self)
         registerTargetToDependency(MyPageCoordinator.self, to: MainCoordinator.self)
         registerTargetToDependency(MyPageRootCoordinator.self, to: RootCoordinator.self)
+        registerTargetToDependency(EditProfileCoordinator.self, to: MainCoordinator.self)
     }
     
     func registerNavigation() {
@@ -59,6 +61,7 @@ private extension DIContainer {
         registerMainViewModel()
         registerHomeViewModel()
         registerMyPageViewModel()
+        registerEditProfileViewModel()
     }
     
     func registerSplashViewModel() {
@@ -91,6 +94,12 @@ private extension DIContainer {
                 coordinator: resolver.resolve(),
                 rootCoordinator: resolver.resolve()
             )
+        }
+    }
+    
+    func registerEditProfileViewModel() {
+        container.register(EditProfileViewModel.self) { resolver in
+            EditProfileViewModel(coordinator: resolver.resolve())
         }
     }
 }
