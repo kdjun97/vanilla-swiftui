@@ -6,12 +6,18 @@
 //
 
 import Foundation
+import Domain
 
 final public class EditProfileViewModel: ObservableObject {
     private let coordinator: EditProfileCoordinator
+    private let accountUseCase: AccountUseCase
         
-    public init(coordinator: EditProfileCoordinator) {
+    public init(
+        coordinator: EditProfileCoordinator,
+        accountUseCase: AccountUseCase
+    ) {
         self.coordinator = coordinator
+        self.accountUseCase = accountUseCase
     }
     
     enum Action {
@@ -44,17 +50,24 @@ final public class EditProfileViewModel: ObservableObject {
         case .editProfileButtonTapped:
             isLoading = true
             Task { @MainActor in
-                await updateProfile()
-                isLoading = false
-                alertCase = .success
+                defer { isLoading = false }
+                do {
+                    try await updateProfile()
+                    alertCase = .success
+                } catch {
+                    alertCase = .failure("요청에 실패하였습니다.")
+                }
             }
         }
     }
 }
 
 private extension EditProfileViewModel {
-    func updateProfile() async {
-        // TODO: Usecase 작업
-        try? await Task.sleep(for: .seconds(1))
+    func updateProfile() async throws {
+        do {
+            try await accountUseCase.updateUserProfile()
+        } catch {
+            throw error
+        }
     }
 }

@@ -13,11 +13,38 @@ import Main
 import Home
 import MyPage
 import EditProfile
+import Data
+import Domain
 
 extension DIContainer {
     func register() {
+        registerNetworkDependency()
         registerCoordinator()
         registerViewModel()
+    }
+}
+
+private extension DIContainer {
+    func registerNetworkDependency() {
+        registerApiServiceDependency()
+        registerAccountDependency()
+    }
+    
+    func registerApiServiceDependency() {
+        container.register(ApiService.self) { resolver in
+            return ApiService()
+        }
+    }
+    
+    func registerAccountDependency() {
+        container.register(AccountRepositoryProtocol.self) { resolver in
+            let apiService: ApiService = resolver.resolve()
+            return AccountRepository(apiService: apiService)
+        }
+        
+        container.register(AccountUseCase.self) { resolver in
+            return AccountUseCase(repositoryProtocol: resolver.resolve())
+        }
     }
 }
 
@@ -99,7 +126,10 @@ private extension DIContainer {
     
     func registerEditProfileViewModel() {
         container.register(EditProfileViewModel.self) { resolver in
-            EditProfileViewModel(coordinator: resolver.resolve())
+            EditProfileViewModel(
+                coordinator: resolver.resolve(),
+                accountUseCase: resolver.resolve()
+            )
         }
     }
 }
