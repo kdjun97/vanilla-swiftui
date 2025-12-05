@@ -28,7 +28,7 @@
 
 # TODO
 
-- [ ] Task A
+- [x] Task A
   - A View -> B View 정보 전달
   - A -> B 이동 (Push)
   - Associated value 사용
