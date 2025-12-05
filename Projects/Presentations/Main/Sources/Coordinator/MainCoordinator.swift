@@ -7,6 +7,7 @@
 
 import Home
 import MyPage
+import EditProfile
 
 final public class MainCoordinator {
     private var navigation: MainNavigation
@@ -23,5 +24,11 @@ extension MainCoordinator: HomeCoordinator {
 extension MainCoordinator: MyPageCoordinator {
     public func navigateToEditProfile() {
         navigation.mainPath.append(.editProfile)
+    }
+}
+
+extension MainCoordinator: EditProfileCoordinator {
+    public func navigateToBack() {
+        navigation.mainPath.removeLast()
     }
 }

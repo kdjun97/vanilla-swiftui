@@ -25,15 +25,6 @@ public struct MyPageView: View  {
             
             ColorDivider(height: 1, color: .gray.opacity(0.2))
             profileBodyView
-            
-//            Button {
-//                viewModel.send(.logoutButtonTapped)
-//            } label: {
-//                Text("로그아웃")
-//                    .frame(width: 96, height: 48)
-//                    .padding()
-//                    .background(.green.opacity(0.4))
-//            }
         }
         .onAppear {
             viewModel.send(.onAppear)

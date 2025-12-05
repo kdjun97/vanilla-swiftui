@@ -41,12 +41,10 @@ final public class MyPageViewModel: ObservableObject {
             break
         case .logoutButtonTapped:
             rootCoordinator.logout()
-            break
         case .menuButtonTapped(let item):
             switch item {
             case .logout:
                 send(.logoutButtonTapped)
-                break
             case .editProfile:
                 coordinator.navigateToEditProfile()
             default:

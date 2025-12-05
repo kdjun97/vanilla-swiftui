@@ -17,7 +17,7 @@ public extension Array where Element == TargetDependency {
         
         return modules.map { module in
             switch module {
-            case .App, .Domain, .DesignSystem, .DI:
+            case .App, .Domain, .DesignSystem, .DI, .Data:
                 return .project(
                     target: module.name,
                     path: .relativeToRoot("Projects/\(module.name)")

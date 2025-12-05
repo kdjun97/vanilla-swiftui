@@ -22,6 +22,8 @@ extension ModuleType {
             externalModule.rawValue
         case .DI:
             "DI"
+        case .Data:
+            "Data"
         }
     }
     
