@@ -13,6 +13,7 @@ import Main
 import Home
 import MyPage
 import EditProfile
+import TermsOfService
 import Data
 import Domain
 
@@ -58,6 +59,7 @@ private extension DIContainer {
         registerTargetToDependency(MyPageCoordinator.self, to: MainCoordinator.self)
         registerTargetToDependency(MyPageRootCoordinator.self, to: RootCoordinator.self)
         registerTargetToDependency(EditProfileCoordinator.self, to: MainCoordinator.self)
+        registerTargetToDependency(TermsOfServiceCoordinator.self, to: MainCoordinator.self)
     }
     
     func registerNavigation() {

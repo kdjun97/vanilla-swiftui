@@ -10,6 +10,7 @@ import DI
 import Home
 import MyPage
 import EditProfile
+import TermsOfService
 
 public struct MainView: View  {
     @EnvironmentObject private var navigation: MainNavigation
@@ -32,6 +33,8 @@ public struct MainView: View  {
     private func destinationView(path: MainPath) -> some View {
         ZStack {
             switch path {
+            case .termsOfService(let tempModel):
+                TermsOfServiceView(tempModel: tempModel)
             case .editProfile:
                 EditProfileView()
             }
