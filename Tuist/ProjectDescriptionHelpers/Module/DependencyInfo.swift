@@ -24,11 +24,13 @@ public let dependencyInfo: DependencyInfo = DependencyInfo(
         .Presentations(.Main): [
             .Presentations(.Home),
             .Presentations(.MyPage),
-            .Presentations(.EditProfile)
+            .Presentations(.EditProfile),
+            .Presentations(.TermsOfService)
         ],
         .Presentations(.Home): [.Presentations(.Base)],
         .Presentations(.MyPage): [.Presentations(.Base)],
         .Presentations(.EditProfile): [.Presentations(.Base)],
+        .Presentations(.TermsOfService): [.Presentations(.Base)],
         .DI: [.External(.Swinject)],
         .Data: [.Domain]
     ]

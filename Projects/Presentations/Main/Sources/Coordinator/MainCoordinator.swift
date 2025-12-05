@@ -8,6 +8,9 @@
 import Home
 import MyPage
 import EditProfile
+import TermsOfService
+import Domain
+import Base
 
 final public class MainCoordinator {
     private var navigation: MainNavigation
@@ -25,10 +28,20 @@ extension MainCoordinator: MyPageCoordinator {
     public func navigateToEditProfile() {
         navigation.mainPath.append(.editProfile)
     }
+    
+    public func navigateToTermsOfService(model: TempPassModel) {
+        navigation.mainPath.append(.termsOfService(model))
+    }
 }
 
-extension MainCoordinator: EditProfileCoordinator {
+extension MainCoordinator: BaseMainCoordinator {
     public func navigateToBack() {
         navigation.mainPath.removeLast()
     }
+}
+
+extension MainCoordinator: EditProfileCoordinator {
+}
+
+extension MainCoordinator: TermsOfServiceCoordinator{
 }

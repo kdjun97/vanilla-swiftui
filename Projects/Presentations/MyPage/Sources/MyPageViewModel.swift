@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 final public class MyPageViewModel: ObservableObject {
     private let coordinator: MyPageCoordinator
@@ -43,6 +44,10 @@ final public class MyPageViewModel: ObservableObject {
             rootCoordinator.logout()
         case .menuButtonTapped(let item):
             switch item {
+            case .termsOfService:
+                coordinator.navigateToTermsOfService(
+                    model: TempPassModel(value: "1111123123")
+                )
             case .logout:
                 send(.logoutButtonTapped)
             case .editProfile:
