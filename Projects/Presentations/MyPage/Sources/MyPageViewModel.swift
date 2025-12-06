@@ -5,22 +5,33 @@
 //  Created by 김동준 on 11/28/25
 //
 
-import Foundation
+import Combine
 import Domain
 
 final public class MyPageViewModel: ObservableObject {
     private let coordinator: MyPageCoordinator
     private let rootCoordinator: MyPageRootCoordinator
-        
+    private var cancellables = Set<AnyCancellable>()
+
     public init(
         coordinator: MyPageCoordinator,
         rootCoordinator: MyPageRootCoordinator
     ) {
         self.coordinator = coordinator
         self.rootCoordinator = rootCoordinator
+        bindingEvent()
     }
     
-    enum MenuType: String, CaseIterable {
+    private func bindingEvent() {
+        coordinator.myPageEventPublisher
+            .sink { [weak self] event in
+                guard let self = self else { return }
+                self.handleEvent(event)
+            }
+            .store(in: &cancellables)
+    }
+    
+    public enum MenuType: String, CaseIterable {
         case termsOfService = "이용약관"
         case privacyPolicy = "개인정보 처리방침"
         case openSourceLibrary = "오픈소스 라이브러리"
@@ -45,10 +56,11 @@ final public class MyPageViewModel: ObservableObject {
 }
 
 extension MyPageViewModel {
-    enum Action {
+    public enum Action {
         case onAppear
         case logoutButtonTapped
         case menuButtonTapped(MenuType)
+        case dataReceived(String)
     }
     
     func send(_ action: Action) {
@@ -70,6 +82,19 @@ extension MyPageViewModel {
             default:
                 break
             }
+        case .dataReceived:
+            break
+        }
+    }
+}
+
+private extension MyPageViewModel {
+    func handleEvent(_ event: MyPageViewModel.Action) {
+        switch event {
+        case .dataReceived(let info):
+            alertCase = .failure(info)
+        default:
+            break
         }
     }
 }

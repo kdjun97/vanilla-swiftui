@@ -11,12 +11,17 @@ import EditProfile
 import TermsOfService
 import Domain
 import Base
+import Combine
 
 final public class MainCoordinator {
     private var navigation: MainNavigation
-    
+    public let termsOfServiceEventPublisher = PassthroughSubject<TermsOfServiceViewModel.Action, Never>()
+    public let myPageEventPublisher = PassthroughSubject<MyPageViewModel.Action, Never>()
+    var cancellables = Set<AnyCancellable>()
+
     public init(navigation: MainNavigation) {
         self.navigation = navigation
+        bindingEventMediation()
     }
 }
 
