@@ -10,12 +10,11 @@ import DI
 import DesignSystem
 
 public struct MyPageView: View  {
-    @StateObject private var viewModel: MyPageViewModel
+    @ObservedObject private var viewModel: MyPageViewModel
     private let avatarSize: CGFloat = 60
 
-    public init() {
-        let viewModel: MyPageViewModel = DIContainer.shared.resolve()
-        _viewModel = StateObject(wrappedValue: viewModel)
+    public init(viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
     }
 
     public var body: some View {
@@ -28,6 +27,9 @@ public struct MyPageView: View  {
         }
         .onAppear {
             viewModel.send(.onAppear)
+        }
+        .alert(item: $viewModel.alertCase) { alert in
+            alertView(alert)
         }
     }
 }
@@ -90,5 +92,29 @@ private extension MyPageView {
         Circle()
             .frame(avatarSize, avatarSize)
             .offset(y: -(avatarSize/2))
+    }
+}
+
+private extension MyPageView {
+    func alertView(_ alertCase: MyPageViewModel.AlertCase) -> Alert {
+        var title: String {
+            switch alertCase {
+            case .success: "성공"
+            case .failure: "오류"
+            }
+        }
+        
+        var message: String {
+            switch alertCase {
+            case .success: "성공"
+            case .failure(let message): message
+            }
+        }
+        
+        return Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: .default(Text("확인"))
+        )
     }
 }

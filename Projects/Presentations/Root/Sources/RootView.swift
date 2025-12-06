@@ -12,7 +12,6 @@ import Main
 
 public struct RootView: View  {
     @EnvironmentObject private var rootNavigation: RootNavigation
-    @EnvironmentObject private var mainNavigation: MainNavigation
 
     public init() {}
 
@@ -24,7 +23,6 @@ public struct RootView: View  {
             SignInView()
         case .main:
             MainView()
-                .environmentObject(mainNavigation)
         }
     }
 }

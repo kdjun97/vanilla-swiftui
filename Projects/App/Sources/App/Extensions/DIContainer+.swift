@@ -79,7 +79,7 @@ private extension DIContainer {
         
         container.register(MainCoordinator.self) { resolver in
             MainCoordinator(navigation: resolver.resolve())
-        }
+        }.inObjectScope(.container)
     }
 }
 
@@ -88,8 +88,6 @@ private extension DIContainer {
         registerSplashViewModel()
         registerSignInViewModel()
         registerMainViewModel()
-        registerHomeViewModel()
-        registerMyPageViewModel()
         registerEditProfileViewModel()
     }
     
@@ -109,15 +107,9 @@ private extension DIContainer {
         container.register(MainViewModel.self) { resolver in
             MainViewModel(coordinator: resolver.resolve())
         }
-    }
-    
-    func registerHomeViewModel() {
         container.register(HomeViewModel.self) { resolver in
             HomeViewModel(coordinator: resolver.resolve())
         }
-    }
-    
-    func registerMyPageViewModel() {
         container.register(MyPageViewModel.self) { resolver in
             MyPageViewModel(
                 coordinator: resolver.resolve(),
