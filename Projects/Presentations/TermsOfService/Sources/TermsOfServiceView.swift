@@ -29,6 +29,8 @@ public struct TermsOfServiceView: View  {
             Text("내 정보")
                 .vPadding(12)
             Text("model: \(viewModel.passModel.value)")
+            
+            dataTransferButton
             Spacer()
         }
         .navigationBarBackButtonHidden()
@@ -43,6 +45,18 @@ public struct TermsOfServiceView: View  {
                     .padding(.leading, 12)
                 Spacer()
             }.vPadding(12)
+        }
+    }
+}
+
+private extension TermsOfServiceView {
+    var dataTransferButton: some View {
+        Button {
+            viewModel.send(.dataTransferButtonTapped)
+        } label: {
+            Text("Pop + 데이터 전송 버튼")
+                .padding()
+                .background(.mint.opacity(0.4))
         }
     }
 }

@@ -6,10 +6,13 @@
 //
 
 import Domain
+import Combine
 
 public protocol MyPageCoordinator {
     func navigateToEditProfile()
     func navigateToTermsOfService(model: TempPassModel)
+    
+    var myPageEventPublisher: PassthroughSubject<MyPageViewModel.Action, Never> { get }
 }
 
 public protocol MyPageRootCoordinator {

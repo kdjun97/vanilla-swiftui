@@ -29,14 +29,14 @@
 # TODO
 
 - [x] Task A
-  - A View -> B View 정보 전달
-  - A -> B 이동 (Push)
+  - MyPageView -> TermsOfServiceView 정보 전달
+  - MyPageView -> TermsOfServiceView 이동 (Push)
   - Associated value 사용
-- [ ] Task B
-  - A View <- B View 정보 전달
-  - A -> B 이동 (Push)
-  - B의 버튼 누를 시 정보 전달하면서 Pop
-  - A가 받은 정보로 alert 띄우기
+- [x] Task B
+  - MyPageView <- TermsOfServiceView 정보 전달
+  - MyPageView -> TermsOfServiceView 이동 (Push)
+  - TermsOfServiceView의 버튼 누를 시 정보 전달하면서 Pop
+  - MyPageView가 받은 정보로 alert 띄우기
 - [ ] Task C
   - A -> B 이동 (Push)
   - B 의 액션 감지, A State 변경

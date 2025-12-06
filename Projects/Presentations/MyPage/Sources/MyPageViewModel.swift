@@ -5,19 +5,30 @@
 //  Created by 김동준 on 11/28/25
 //
 
-import Foundation
+import Combine
 import Domain
 
 final public class MyPageViewModel: ObservableObject {
     private let coordinator: MyPageCoordinator
     private let rootCoordinator: MyPageRootCoordinator
-        
+    private var cancellables = Set<AnyCancellable>()
+
     public init(
         coordinator: MyPageCoordinator,
         rootCoordinator: MyPageRootCoordinator
     ) {
         self.coordinator = coordinator
         self.rootCoordinator = rootCoordinator
+        bindingEvent()
+    }
+    
+    private func bindingEvent() {
+        coordinator.myPageEventPublisher
+            .sink { [weak self] event in
+                guard let self = self else { return }
+                self.handleEvent(event)
+            }
+            .store(in: &cancellables)
     }
     
     public enum MenuType: String, CaseIterable {
@@ -27,13 +38,29 @@ final public class MyPageViewModel: ObservableObject {
         case editProfile = "프로필 수정"
         case logout = "로그아웃"
     }
+
+    enum AlertCase: Identifiable {
+        case success
+        case failure(String)
+        
+        var id: String {
+            switch self {
+            case .success: "success"
+            case .failure: "failure"
+            }
+        }
+    }
     
+    @Published var alertCase: AlertCase?
     var menuList: [MenuType] = MenuType.allCases
-    
-    enum Action {
+}
+
+extension MyPageViewModel {
+    public enum Action {
         case onAppear
         case logoutButtonTapped
         case menuButtonTapped(MenuType)
+        case dataReceived(String)
     }
     
     func send(_ action: Action) {
@@ -55,6 +82,19 @@ final public class MyPageViewModel: ObservableObject {
             default:
                 break
             }
+        case .dataReceived:
+            break
+        }
+    }
+}
+
+private extension MyPageViewModel {
+    func handleEvent(_ event: MyPageViewModel.Action) {
+        switch event {
+        case .dataReceived(let info):
+            alertCase = .failure(info)
+        default:
+            break
         }
     }
 }

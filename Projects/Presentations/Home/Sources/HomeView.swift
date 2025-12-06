@@ -9,17 +9,27 @@ import SwiftUI
 import DI
 
 public struct HomeView: View  {
-    @StateObject private var viewModel: HomeViewModel
+    @ObservedObject private var viewModel: HomeViewModel
 
-    public init() {
-        let viewModel: HomeViewModel = DIContainer.shared.resolve()
-        _viewModel = StateObject(wrappedValue: viewModel)
+    public init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
     }
 
     public var body: some View {
-        ZStack {
+        VStack(spacing: 0) {
             Text("Home View!")
                 .font(.system(size: 54, weight: .bold))
+            
+            Text("count:\(viewModel.count)")
+            
+            Button {
+                viewModel.send(.countButtonTapped)
+            } label: {
+                Text("Count 증가")
+                    .padding()
+                    .background(.purple.opacity(0.3))
+            }
+            Spacer()
         }.onAppear {
             viewModel.send(.onAppear)
         }

@@ -6,7 +6,8 @@
 //
 
 import Base
+import Combine
 
 public protocol TermsOfServiceCoordinator: BaseMainCoordinator {
-    
+    var termsOfServiceEventPublisher: PassthroughSubject<TermsOfServiceViewModel.Action, Never> { get }
 }

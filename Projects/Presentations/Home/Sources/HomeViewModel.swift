@@ -14,14 +14,19 @@ final public class HomeViewModel: ObservableObject {
         self.coordinator = coordinator
     }
     
+    @Published var count = 0
+    
     enum Action {
         case onAppear
+        case countButtonTapped
     }
     
     func send(_ action: Action) {
         switch action {
         case .onAppear:
             break
+        case .countButtonTapped:
+            count+=1
         }
     }
 }
