@@ -33,8 +33,6 @@ final public class MyPageViewModel: ObservableObject {
     
     public enum MenuType: String, CaseIterable {
         case termsOfService = "이용약관"
-        case privacyPolicy = "개인정보 처리방침"
-        case openSourceLibrary = "오픈소스 라이브러리"
         case editProfile = "프로필 수정"
         case logout = "로그아웃"
     }
@@ -79,8 +77,6 @@ extension MyPageViewModel {
                 send(.logoutButtonTapped)
             case .editProfile:
                 coordinator.navigateToEditProfile()
-            default:
-                break
             }
         case .dataReceived:
             break
