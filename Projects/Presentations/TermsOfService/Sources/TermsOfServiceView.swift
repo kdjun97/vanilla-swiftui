@@ -24,13 +24,14 @@ public struct TermsOfServiceView: View  {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 24) {
             navigationBar
             Text("내 정보")
                 .vPadding(12)
             Text("model: \(viewModel.passModel.value)")
             
             dataTransferButton
+            taskBInfo
             Spacer()
         }
         .navigationBarBackButtonHidden()
@@ -57,6 +58,22 @@ private extension TermsOfServiceView {
             Text("Pop + 데이터 전송 버튼")
                 .padding()
                 .background(.mint.opacity(0.4))
+        }
+    }
+}
+
+private extension TermsOfServiceView {
+    var taskBInfo: some View {
+        VStack(spacing: 12) {
+            Text("count:\(viewModel.count)")
+            
+            Button {
+                viewModel.send(.timerStartButtonTapped)
+            } label: {
+                Text("A View에서 Timer On")
+                    .padding()
+                    .background(.blue.opacity(0.3))
+            }
         }
     }
 }

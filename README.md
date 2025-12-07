@@ -37,10 +37,11 @@
   - MyPageView -> TermsOfServiceView 이동 (Push)
   - TermsOfServiceView의 버튼 누를 시 정보 전달하면서 Pop
   - MyPageView가 받은 정보로 alert 띄우기
-- [ ] Task C
-  - A -> B 이동 (Push)
-  - B 의 액션 감지, A State 변경
-  - A 의 timer 시작, B State 변경
+- [x] Task C
+  - MyPageView -> TermsOfServiceView 이동 (Push)
+  - TermsOfServiceView 의 액션 감지, MyPageView 액션 감지
+  - MyPageView 의 timer 시작, TermsOfServiceView State 변경
+  - TermsOfServiceView가 사라지면, MyPageView Timer 중단
 - [ ] Task D
   - Sheet
 - [ ] Task E

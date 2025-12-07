@@ -7,11 +7,14 @@
 
 import Combine
 import Domain
+import Foundation
 
 final public class MyPageViewModel: ObservableObject {
     private let coordinator: MyPageCoordinator
     private let rootCoordinator: MyPageRootCoordinator
     private var cancellables = Set<AnyCancellable>()
+    private var timerCancellable: AnyCancellable?
+    private var isTimerRunning: Bool = false
 
     public init(
         coordinator: MyPageCoordinator,
@@ -33,8 +36,6 @@ final public class MyPageViewModel: ObservableObject {
     
     public enum MenuType: String, CaseIterable {
         case termsOfService = "이용약관"
-        case privacyPolicy = "개인정보 처리방침"
-        case openSourceLibrary = "오픈소스 라이브러리"
         case editProfile = "프로필 수정"
         case logout = "로그아웃"
     }
@@ -61,6 +62,9 @@ extension MyPageViewModel {
         case logoutButtonTapped
         case menuButtonTapped(MenuType)
         case dataReceived(String)
+        case startTimerForTaskB
+        case timerTick
+        case stopTimer
     }
     
     func send(_ action: Action) {
@@ -79,10 +83,14 @@ extension MyPageViewModel {
                 send(.logoutButtonTapped)
             case .editProfile:
                 coordinator.navigateToEditProfile()
-            default:
-                break
             }
         case .dataReceived:
+            break
+        case .startTimerForTaskB:
+            break
+        case .timerTick:
+            break
+        case .stopTimer:
             break
         }
     }
@@ -93,6 +101,19 @@ private extension MyPageViewModel {
         switch event {
         case .dataReceived(let info):
             alertCase = .failure(info)
+        case .startTimerForTaskB:
+            if isTimerRunning { return }
+            isTimerRunning = true
+            
+            timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
+                .autoconnect()
+                .sink { [weak self] _ in
+                    guard let self = self else { return }
+                    self.coordinator.myPageEventPublisher.send(.timerTick)
+                }
+        case .stopTimer:
+            isTimerRunning = false
+            timerCancellable?.cancel()
         default:
             break
         }
