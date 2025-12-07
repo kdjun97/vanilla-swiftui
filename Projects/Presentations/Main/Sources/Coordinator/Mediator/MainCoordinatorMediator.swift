@@ -20,5 +20,12 @@ extension MainCoordinator {
                 self.handleMyPageEvent(event)
             }
             .store(in: &cancellables)
+        
+        sheetEventPublisher
+            .sink { [weak self] event in
+                guard let self = self else { return }
+                self.handleSheetEvent(event)
+            }
+            .store(in: &cancellables)
     }
 }

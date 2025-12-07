@@ -42,7 +42,6 @@
   - TermsOfServiceView 의 액션 감지, MyPageView 액션 감지
   - MyPageView 의 timer 시작, TermsOfServiceView State 변경
   - TermsOfServiceView가 사라지면, MyPageView Timer 중단
-- [ ] Task D
-  - Sheet
-- [ ] Task E
-  - FullScreenCover
+- [x] Task D
+  - Home 에서 Sheet Present
+  - Sheet의 버튼 감지 -> dismiss + Home의 State 변경

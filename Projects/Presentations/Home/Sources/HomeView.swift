@@ -16,7 +16,15 @@ public struct HomeView: View  {
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
+        homeBody
+            .onAppear { viewModel.send(.onAppear) }
+            .sheet(isPresented: $viewModel.isSheetPresented) {
+                SheetView()
+            }
+    }
+    
+    private var homeBody: some View {
+        VStack(spacing: 12) {
             Text("Home View!")
                 .font(.system(size: 54, weight: .bold))
             
@@ -29,9 +37,15 @@ public struct HomeView: View  {
                     .padding()
                     .background(.purple.opacity(0.3))
             }
+            
+            Button {
+                viewModel.send(.sheetButtonTapped)
+            } label: {
+                Text("Sheet 열기")
+                    .padding()
+                    .background(.green.opacity(0.3))
+            }
             Spacer()
-        }.onAppear {
-            viewModel.send(.onAppear)
         }
     }
 }
