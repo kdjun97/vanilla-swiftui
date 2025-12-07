@@ -1,0 +1,79 @@
+//
+//  TermsOfServiceView.swift
+//  TermsOfService
+//
+//  Created by 김동준 on 12/5/25
+//
+
+import SwiftUI
+import DI
+import DesignSystem
+import Domain
+
+public struct TermsOfServiceView: View  {
+    @StateObject private var viewModel: TermsOfServiceViewModel
+
+    public init(tempModel: TempPassModel) {
+        let coordinator: TermsOfServiceCoordinator = DIContainer.shared.resolve()
+        _viewModel = StateObject(
+            wrappedValue: TermsOfServiceViewModel(
+                coordinator: coordinator,
+                passModel: tempModel
+            )
+        )
+    }
+
+    public var body: some View {
+        VStack(spacing: 24) {
+            navigationBar
+            Text("내 정보")
+                .vPadding(12)
+            Text("model: \(viewModel.passModel.value)")
+            
+            dataTransferButton
+            taskBInfo
+            Spacer()
+        }
+        .navigationBarBackButtonHidden()
+    }
+
+    private var navigationBar: some View {
+        Button {
+            viewModel.send(.backButtonTapped)
+        } label: {
+            HStack(spacing: 0) {
+                VImages.icArrowLeft.swiftUIImage
+                    .padding(.leading, 12)
+                Spacer()
+            }.vPadding(12)
+        }
+    }
+}
+
+private extension TermsOfServiceView {
+    var dataTransferButton: some View {
+        Button {
+            viewModel.send(.dataTransferButtonTapped)
+        } label: {
+            Text("Pop + 데이터 전송 버튼")
+                .padding()
+                .background(.mint.opacity(0.4))
+        }
+    }
+}
+
+private extension TermsOfServiceView {
+    var taskBInfo: some View {
+        VStack(spacing: 12) {
+            Text("count:\(viewModel.count)")
+            
+            Button {
+                viewModel.send(.timerStartButtonTapped)
+            } label: {
+                Text("A View에서 Timer On")
+                    .padding()
+                    .background(.blue.opacity(0.3))
+            }
+        }
+    }
+}

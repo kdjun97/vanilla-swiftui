@@ -61,6 +61,7 @@ DerivedData/
 ### Projects ###
 *.xcodeproj
 *.xcworkspace
+Package.resolved
 
 ### Tuist derived files ###
 graph.dot
@@ -69,3 +70,4 @@ Derived/
 ### Tuist managed dependencies ###
 Tuist/.build
 .build
+
