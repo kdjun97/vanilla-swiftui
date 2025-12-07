@@ -17,6 +17,8 @@ final public class MainCoordinator {
     var navigation: MainNavigation
     public let termsOfServiceEventPublisher = PassthroughSubject<TermsOfServiceViewModel.Action, Never>()
     public let myPageEventPublisher = PassthroughSubject<MyPageViewModel.Action, Never>()
+    public let sheetEventPublisher = PassthroughSubject<SheetViewModel.Action, Never>()
+    public let homeEventPublisher = PassthroughSubject<HomeViewModel.Action, Never>()
     var cancellables = Set<AnyCancellable>()
 
     public init(navigation: MainNavigation) {
@@ -50,3 +52,5 @@ extension MainCoordinator: EditProfileCoordinator {
 
 extension MainCoordinator: TermsOfServiceCoordinator{
 }
+
+extension MainCoordinator: SheetCoordinator {}

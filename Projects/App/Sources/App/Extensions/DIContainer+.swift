@@ -60,6 +60,7 @@ private extension DIContainer {
         registerTargetToDependency(MyPageRootCoordinator.self, to: RootCoordinator.self)
         registerTargetToDependency(EditProfileCoordinator.self, to: MainCoordinator.self)
         registerTargetToDependency(TermsOfServiceCoordinator.self, to: MainCoordinator.self)
+        registerTargetToDependency(SheetCoordinator.self, to: MainCoordinator.self)
     }
     
     func registerNavigation() {
@@ -89,6 +90,7 @@ private extension DIContainer {
         registerSignInViewModel()
         registerMainViewModel()
         registerEditProfileViewModel()
+        registerSheetViewModel()
     }
     
     func registerSplashViewModel() {
@@ -123,6 +125,14 @@ private extension DIContainer {
             EditProfileViewModel(
                 coordinator: resolver.resolve(),
                 accountUseCase: resolver.resolve()
+            )
+        }
+    }
+    
+    func registerSheetViewModel() {
+        container.register(SheetViewModel.self) { resolver in
+            SheetViewModel(
+                coordinator: resolver.resolve()
             )
         }
     }
