@@ -14,6 +14,9 @@ extension MainCoordinator {
         case .transferData(let data):
             let myPageEvent = MyPageViewModel.Action.dataReceived(data)
             myPageEventPublisher.send(myPageEvent)
+        case .startTimer:
+            let myPageEvent = MyPageViewModel.Action.startTimerForTaskB
+            myPageEventPublisher.send(myPageEvent)
         default:
             break
         }

@@ -14,7 +14,7 @@ import Base
 import Combine
 
 final public class MainCoordinator {
-    private var navigation: MainNavigation
+    var navigation: MainNavigation
     public let termsOfServiceEventPublisher = PassthroughSubject<TermsOfServiceViewModel.Action, Never>()
     public let myPageEventPublisher = PassthroughSubject<MyPageViewModel.Action, Never>()
     var cancellables = Set<AnyCancellable>()
